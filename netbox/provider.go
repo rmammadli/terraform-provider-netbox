@@ -47,6 +47,7 @@ func Provider() *schema.Provider {
 		ResourcesMap: map[string]*schema.Resource{
 			"netbox_dcim_region": resourceDcimRegion(),
 			"netbox_dcim_rack":   resourceDcimRack(),
+			"netbox_dcim_site":   resourceDcimSite(),
 		},
 
 		ConfigureContextFunc: providerConfigure,

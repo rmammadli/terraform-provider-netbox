@@ -1,0 +1,36 @@
+- name: Europa
+  slug: europa
+  # here we have mapping to id of sites (Europa-West is region but has also id equal to site id)
+  # data.netbox_dcim_regions.regions.results[key].name == config.site, site module should bre created for that in terraform provider ,still missing
+  site: Europa
+  rack:
+  - name: rack_001
+    comments: "Fresh backed first rack"
+    tags:
+    - rack001_tag1
+    - rack001_tag2
+    u_height: 42
+    interface:
+    - name: interface_001
+      custom_fields:
+        name: tag_interface_1
+        slug: tag_interface_1
+
+      
+- name: Europa-West
+  slug: europa-west
+  # here we have mapping to id of sites (Europa-West is region but has also id equal to site id)
+  # data.netbox_dcim_regions.regions.results[key].name == config.site, site module should bre created for that in terraform provider ,still missing
+  site: Europa-West 
+  rack:
+  - name: rack_002
+    comments: "Fresh backed second rack"
+    tags:
+    - rack002_tag1
+    - rack002_tag2
+    u_height: 42
+    interface:
+    - name: interface_002
+      custom_fields:
+        name: tag_interface_2
+        slug: tag_interface_2

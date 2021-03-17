@@ -16,6 +16,7 @@ terraform/*.tfstate.*
 # terraform/provider
 terraform/*.tf
 terraform/*.yaml
+terraform/files/*
 
 # Crash log files
 crash.log

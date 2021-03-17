@@ -42,6 +42,7 @@ func Provider() *schema.Provider {
 		DataSourcesMap: map[string]*schema.Resource{
 			"netbox_dcim_region":  dataSourceDcimRegion(),
 			"netbox_dcim_regions": dataSourceDcimRegions(),
+			"netbox_dcim_sites":   dataSourceDcimSites(),
 		},
 
 		ResourcesMap: map[string]*schema.Resource{

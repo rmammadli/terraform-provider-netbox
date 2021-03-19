@@ -40,15 +40,17 @@ func Provider() *schema.Provider {
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{
-			"netbox_dcim_region":  dataSourceDcimRegion(),
-			"netbox_dcim_regions": dataSourceDcimRegions(),
-			"netbox_dcim_sites":   dataSourceDcimSites(),
+			"netbox_dcim_region":     dataSourceDcimRegion(),
+			"netbox_dcim_regions":    dataSourceDcimRegions(),
+			"netbox_dcim_sites":      dataSourceDcimSites(),
+			"netbox_dcim_interfaces": dataSourceDcimInterfaces(),
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
-			"netbox_dcim_region": resourceDcimRegion(),
-			"netbox_dcim_rack":   resourceDcimRack(),
-			"netbox_dcim_site":   resourceDcimSite(),
+			"netbox_dcim_region":    resourceDcimRegion(),
+			"netbox_dcim_rack":      resourceDcimRack(),
+			"netbox_dcim_site":      resourceDcimSite(),
+			"netbox_dcim_interface": resourceDcimInterface(),
 		},
 
 		ConfigureContextFunc: providerConfigure,

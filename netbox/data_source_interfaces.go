@@ -12,7 +12,7 @@ import (
 	"github.com/netbox-community/go-netbox/netbox/models"
 )
 
-func dataSourceDcimInterfaces() *schema.Resource {
+func dataSourceDcimSites() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceDcimSitesRead,
 		Schema: map[string]*schema.Schema{
@@ -21,6 +21,10 @@ func dataSourceDcimInterfaces() *schema.Resource {
 				Optional: true,
 			},
 			"id": {
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+			"slug": {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
@@ -38,6 +42,11 @@ func dataSourceDcimInterfaces() *schema.Resource {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
+
+						"slug": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
 					},
 				},
 			},
@@ -45,12 +54,12 @@ func dataSourceDcimInterfaces() *schema.Resource {
 	}
 }
 
-func dataSourceDcimInterfacesRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+func dataSourceDcimSitesRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	c := m.(*client.NetBoxAPI)
 
 	var diags diag.Diagnostics
 
-	params := &dcim.DcimInterfacesListParams{
+	params := &dcim.DcimSitesListParams{
 		Context: ctx,
 	}
 
@@ -64,19 +73,24 @@ func dataSourceDcimInterfacesRead(ctx context.Context, d *schema.ResourceData, m
 		params.ID = &id
 	}
 
-	r, err := c.Dcim.DcimInterfacesList(params, nil)
+	if val, ok := d.GetOk("slug"); ok {
+		slug := val.(string)
+		params.Slug = &slug
+	}
+
+	r, err := c.Dcim.DcimSitesList(params, nil)
 	if err != nil {
-		return diag.Errorf("Could not get the list of interfaces: %v", err)
+		return diag.Errorf("Could not get the list of sites: %v", err)
 	}
 
 	// always run
 	d.SetId(strconv.FormatInt(time.Now().Unix(), 10))
-	d.Set("results", flattenDcimInterfacesResults(r.Payload.Results))
+	d.Set("results", flattenDcimSitesResults(r.Payload.Results))
 
 	return diags
 }
 
-func flattenDcimInterfacesResults(input []*models.Interface) []interface{} {
+func flattenDcimSitesResults(input []*models.Site) []interface{} {
 	if input == nil {
 		return []interface{}{}
 	}
@@ -88,6 +102,7 @@ func flattenDcimInterfacesResults(input []*models.Interface) []interface{} {
 
 		values["id"] = value.ID
 		values["name"] = value.Name
+		values["slug"] = value.Slug
 
 		result = append(result, values)
 	}

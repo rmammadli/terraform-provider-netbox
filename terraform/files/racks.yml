@@ -11,10 +11,19 @@
     - rack001_tag2
     u_height: 42
     interface:
-    - name: interface_001
+    - name: interface_003
+      device: 2
+      type: "virtual"
       custom_fields:
-        name: tag_interface_1
-        slug: tag_interface_1
+        name: tag_interface_2
+        slug: tag_interface_2
+    - name: interface_004
+      device: 2
+      type: "virtual"
+      custom_fields:
+        name: tag_interface_2
+        slug: tag_interface_2
+
 
       
 - name: Madrid
@@ -31,6 +40,8 @@
     u_height: 42
     interface:
     - name: interface_002
+      device: 2
+      type: "virtual"
       custom_fields:
         name: tag_interface_2
         slug: tag_interface_2
